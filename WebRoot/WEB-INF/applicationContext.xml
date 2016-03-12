@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>   
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"  
+    xsi:schemaLocation="  
+          http://www.springframework.org/schema/beans  
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+          http://www.springframework.org/schema/aop  
+          http://www.springframework.org/schema/aop/spring-aop-2.0.xsd  
+          http://www.springframework.org/schema/tx  
+          http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">  
+     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">  
+         <property name="configLocation">  
+              <value>classpath:hibernate.cfg.xml</value>  
+         </property>
+         <property name="mappingResources">
+         	<list>
+         		<value>User.hbm.xml</value>
+         		<value>Room.hbm.xml</value>
+         		<value>Booking.hbm.xml</value>
+         		<value>CheckIn.hbm.xml</value></list>
+         </property></bean>  
+  
+     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">  
+         <property name="sessionFactory">  
+              <ref bean="sessionFactory"/>  
+         </property>  
+     </bean>  
+  
+     <tx:annotation-driven transaction-manager="transactionManager" />  
+     
+     <bean id="loginAction" class="action.LoginAction" scope="prototype">  
+         <property name="userService" ref="userService" />  
+     </bean>  
+     <bean id="baseService" class="service.BaseService" >  
+         <property name="baseDAO" ref="baseDAO" />  
+     </bean>  
+     <bean id="baseDAO" class="dao.BaseDAO">  
+         <property name="sessionFactory" ref="sessionFactory" />  
+     </bean>  
+     
+     <bean id="registerAction" class="action.RegisterAction" scope="prototype">
+     	<property name="baseService" ref="baseService"></property>
+     	<property name="userService" ref="userService"></property>
+     </bean>
+
+     <bean id="userDAO" class="dao.UserDAO">
+     	<property name="sessionFactory">
+     		<ref bean="sessionFactory" />
+     	</property>
+     </bean>
+     
+     <bean id="userService" class="service.UserService">
+     	<property name="userDAO" ref="userDAO"></property>
+     </bean>
+     
+     <bean id="logoutAction" class="action.LogoutAction" scope="prototype">
+     	<property name="userService" ref="userService"></property>
+     </bean>
+     
+     <bean id="roomDAO" class="dao.RoomDAO">
+     	<property name="sessionFactory">
+     		<ref bean="sessionFactory" />
+     	</property>
+     </bean>
+	
+	<bean id="roomService" class="service.RoomService">
+		<property name="roomDAO" ref="roomDAO"></property>
+	</bean>     
+     
+	<bean id="bookingDAO" class="dao.BookingDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="searchAction" class="action.SearchAction" scope="prototype">
+		<property name="baseService" ref="baseService"></property>
+	</bean>
+	
+	<bean id="bookingService" class="service.BookingService">
+		<property name="bookingDAO" ref="bookingDAO"></property>
+	</bean>
+	
+	<bean id="bookAction" class="action.BookAction" scope="prototype">
+		<property name="bookingService" ref="bookingService"></property>
+	</bean>
+	
+	<bean id="queryMyBookingInfoAction" class="action.QueryMyBookingInfoAction" scope="prototype">
+		<property name="bookingService" ref="bookingService"></property>
+		<property name="baseService" ref="baseService"></property>
+	</bean>
+	
+	<bean id="cancelBookAction" class="action.CancelBookAction" scope="prototype">
+		<property name="bookingService" ref="bookingService"></property>
+	</bean>
+	
+	<bean id="queryMyInfoAction" class="action.InquireMyInfoAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean id="changePasswordAction" class="action.ChangePasswordAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean id="listBookingWhenCheckInAction" class="action.ListBookingWhenCheckInAction" scope="prototype">
+		<property name="bookingService" ref="bookingService"></property>
+		<property name="baseService" ref="baseService"></property>
+	</bean>
+	
+	<bean id="goToCheckInAction" class="action.GoToCheckInAction" scope="prototype">
+		
+	</bean>
+	
+	<bean id="checkInDAO" class="dao.CheckInDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="checkInAction" class="action.CheckInAction" scope="prototype">
+		<property name="checkInDAO" ref="checkInDAO"></property>
+		<property name="bookingService" ref="bookingService"></property>
+	</bean>	
+	
+	<bean id="checkOutAction" class="action.CheckOutAction" scope="prototype">
+		<property name="checkInDAO" ref="checkInDAO"></property>
+	</bean>
+	
+	<bean id="goToRoomManageAction" class="action.GoToRoomManageAction" scope="prototype">
+		<property name="baseService" ref="baseService"></property>
+	</bean>
+	
+	<bean id="deleteRoomAction" class="action.DeleteRoomAction" scope="prototype">
+		<property name="roomService" ref="roomService"></property>
+		<property name="baseService" ref="baseService"></property>
+	</bean>
+	
+	<bean id="addRoomAction" class="action.AddRoomAction" scope="prototype">
+		<property name="roomService" ref="roomService"></property>
+		<property name="baseService" ref="baseService"></property>
+	</bean>
+	
+	<bean id="goToBookingManage" class="action.GoToBookingManage" scope="prototype">
+		<property name="roomService" ref="roomService"></property>
+	</bean>
+	
+	<bean id="bookingManageExec" class="action.BookingManageExec" scope="prototype">
+		<property name="bookingService" ref="bookingService"></property>
+	</bean>
+	
+	<bean id="goToAddBooking" class="action.GoToAddBooking" scope="prototype">
+		<property name="roomService" ref="roomService"></property>
+	</bean>
+	
+	<bean id="addBookingAction" class="action.AddBookingAction" scope="prototype">
+		<property name="bookingService" ref="bookingService"></property>
+	</bean>
+	
+	<bean id="deleteBookingAction" class="action.DeleteBookingAction" scope="prototype">
+		<property name="bookingService" ref="bookingService"></property>
+	</bean>
+	
+	<bean id="goToCustomerManageAction" class="action.GoToCustomerManageAction">
+		<property name="baseService" ref="baseService"></property>
+	</bean>
+	
+	<bean id="addMultiRoomAction" class="action.AddMultiRoomAction">
+		<property name="baseService" ref="baseService"></property>
+	</bean>
+	
+	<bean id="deleteMultiRoomAction" class="action.DeleteMultiRoomAction">
+		<property name="baseService" ref="baseService"></property>
+	</bean>
+	
+</beans> 

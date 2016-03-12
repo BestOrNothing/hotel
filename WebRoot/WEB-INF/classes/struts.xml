@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+<package name="struts2" namespace="/" extends="struts-default">  
+	<action name="register" class="registerAction">
+		<result name="success">/registerSuccess.jsp</result>
+		<result name="error">/register.jsp</result>
+	</action>
+	<action name="logout" class="logoutAction">
+		<result name="success">/index.jsp</result>
+	</action>
+	<action name="login" class="loginAction">
+		<result name="success">/index.jsp</result>
+		<result name="error">/login.jsp</result>
+	</action>
+	<action name="search" class="searchAction">
+		<result name="book">/book.jsp</result>
+		<result name="check">/checkInWithoutBooking.jsp</result>
+		<result name="bookerror">/book.jsp</result>
+		<result name="checkerror">/checkInWithoutBooking.jsp</result>
+	</action>
+	<action name="book" class="bookAction">
+		<result name="success">/bookSuccess.jsp</result>
+		<result name="toLogin">/login.jsp</result>
+	</action>
+	<action name="queryMyBookingInfo" class="queryMyBookingInfoAction">
+		<result name="success">/myBookingInfo.jsp</result>
+	</action>
+	<action name="cancelBook" class="cancelBookAction">
+		<result name="success">/cancelBookSuccess.jsp</result>
+	</action>
+	<action name="queryMyInfo" class="queryMyInfoAction">
+		<result name="success">/myInfo.jsp</result>
+	</action>
+	<action name="changePassword" class="changePasswordAction">
+		<result name="success">/changePasswordSuccess.jsp</result>
+		<result name="error">/changePassword.jsp</result>
+	</action>
+	<action name="listBookingWhenCheckIn" class="listBookingWhenCheckInAction">
+		<result name="success">/checkInWithBooking.jsp</result>
+	</action>
+	<action name="goToCheckIn" class="goToCheckInAction">
+		<result name="success">/checkIn.jsp</result>
+	</action>
+	<action name="checkIn" class="checkInAction">
+		<result name="success">/checkInSuccess.jsp</result>
+	</action>
+	<action name="checkOut" class="checkOutAction">
+		<result name="success">/checkOut.jsp</result>
+	</action>
+	<action name="goToRoomManage" class="goToRoomManageAction">
+		<result name="success">/roomManage.jsp</result>
+	</action>
+	<action name="deleteRoom" class="deleteRoomAction">
+		<result name="success">/roomManage.jsp</result>
+	</action>
+	<action name="addRoom" class="addRoomAction">
+		<result name="success">/roomManage.jsp</result>
+	</action>
+	<action name="goToBookingManage" class="goToBookingManage">
+		<result name="success">/bookingManage.jsp</result>
+	</action>
+	<action name="bookingManageExec" class="bookingManageExec">
+		<result name="success">/bookingManageExec.jsp</result>
+	</action>
+	<action name="goToAddBooking" class="goToAddBooking">
+		<result name="success">/addBooking.jsp</result>
+	</action>
+	<action name="addBooking" class="addBookingAction">
+		<result name="success">/bookingManageExec.jsp</result>
+	</action>
+	<action name="deleteBooking" class="deleteBookingAction">
+		<result name="success">/bookingManageExec.jsp</result>
+	</action>
+	<action name="goToCustomerManage" class="goToCustomerManageAction">
+		<result name="success">/customerManage.jsp</result>
+	</action>
+	<action name="addMultiRoom" class="addMultiRoomAction">
+		<result name="success">/roomManage.jsp</result>
+	</action>
+	<action name="deleteMultiRoom" class="deleteMultiRoomAction">
+		<result name="success">/roomManage.jsp</result>
+	</action>
+</package>  
+
+</struts>    
